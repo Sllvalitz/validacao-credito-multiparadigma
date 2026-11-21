@@ -1,0 +1,692 @@
+[
+  {
+    "id": "PROP-001",
+    "idade": 30,
+    "renda_mensal": 3500.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4200.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-002",
+    "idade": 45,
+    "renda_mensal": 9000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 12000.0,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-003",
+    "idade": 52,
+    "renda_mensal": 2500.0,
+    "historico_credito": "regular",
+    "valor_solicitado": 3000.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-004",
+    "idade": 38,
+    "renda_mensal": 6000,
+    "historico_credito": "bom",
+    "valor_solicitado": 9000.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-005",
+    "idade": 30,
+    "renda_mensal": 1500.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 3000.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-006",
+    "idade": 30,
+    "renda_mensal": 1500.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 5400.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-007",
+    "idade": 30,
+    "renda_mensal": 1499.99,
+    "historico_credito": "bom",
+    "valor_solicitado": 1800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-008",
+    "idade": 30,
+    "renda_mensal": 1500.01,
+    "historico_credito": "bom",
+    "valor_solicitado": 1800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-009",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 14400.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-010",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 14412.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-011",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 9600.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-012",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 9612.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-013",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "regular",
+    "valor_solicitado": 9600.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-014",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "regular",
+    "valor_solicitado": 9612.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-015",
+    "idade": 18,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-016",
+    "idade": 17,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-017",
+    "idade": 0,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-018",
+    "idade": 99,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-019",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 2400.0,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-020",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-021",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 7200.0,
+    "prazo": 24
+  },
+  {
+    "id": "PROP-022",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 100.0,
+    "prazo": 1
+  },
+  {
+    "id": "PROP-023",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 0
+  },
+  {
+    "id": "PROP-024",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": -6
+  },
+  {
+    "id": "PROP-025",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "excelente",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-026",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "BOM",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-027",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-028",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "ruim",
+    "valor_solicitado": 7200.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-029",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "ruim",
+    "valor_solicitado": 7220.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-030",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "ruim",
+    "valor_solicitado": 2400.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-031",
+    "idade": 30,
+    "renda_mensal": 8000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 21000.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-032",
+    "idade": 30,
+    "renda_mensal": 8000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 20000.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-033",
+    "idade": 30,
+    "renda_mensal": 20000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 60000.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-034",
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-035",
+    "idade": 30,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-036",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-037",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "prazo": 12
+  },
+  {
+    "id": "PROP-038",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0
+  },
+  {
+    "id": "PROP-039",
+    "idade": "30",
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-040",
+    "idade": 30.5,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-041",
+    "idade": true,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-042",
+    "idade": 30,
+    "renda_mensal": "4000.0",
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-043",
+    "idade": 30,
+    "renda_mensal": null,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-044",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": 5,
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-045",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": "4800",
+    "prazo": 12
+  },
+  {
+    "id": "PROP-046",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": null,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-047",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": "12"
+  },
+  {
+    "id": "PROP-048",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12.5
+  },
+  {
+    "id": "PROP-049",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12.0
+  },
+  {
+    "id": "PROP-050",
+    "idade": 30,
+    "renda_mensal": 0.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-051",
+    "idade": 30,
+    "renda_mensal": -1500.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-052",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 0.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-053",
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": -100.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-054",
+    "idade": -1,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-055",
+    "idade": 25,
+    "renda_mensal": 5813.04,
+    "historico_credito": "ruim",
+    "valor_solicitado": 16356.36,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-056",
+    "idade": 32,
+    "renda_mensal": 13579.9,
+    "historico_credito": "ruim",
+    "valor_solicitado": 14135.7,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-057",
+    "idade": 66,
+    "renda_mensal": 11936.48,
+    "historico_credito": "regular",
+    "valor_solicitado": 6378.38,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-058",
+    "idade": 25,
+    "renda_mensal": 5377.74,
+    "historico_credito": "bom",
+    "valor_solicitado": 11516.54,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-059",
+    "idade": 61,
+    "renda_mensal": 5742.15,
+    "historico_credito": "regular",
+    "valor_solicitado": 6662.07,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-060",
+    "idade": 69,
+    "renda_mensal": 6580.65,
+    "historico_credito": "ruim",
+    "valor_solicitado": 13082.89,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-061",
+    "idade": 64,
+    "renda_mensal": 6095.33,
+    "historico_credito": "ruim",
+    "valor_solicitado": 13682.59,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-062",
+    "idade": 47,
+    "renda_mensal": 3401.99,
+    "historico_credito": "ruim",
+    "valor_solicitado": 17747.4,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-063",
+    "idade": 19,
+    "renda_mensal": 12945.22,
+    "historico_credito": "regular",
+    "valor_solicitado": 9406.78,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-064",
+    "idade": 23,
+    "renda_mensal": 6883.44,
+    "historico_credito": "ruim",
+    "valor_solicitado": 14084.0,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-065",
+    "idade": 45,
+    "renda_mensal": 8335.84,
+    "historico_credito": "ruim",
+    "valor_solicitado": 21948.12,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-066",
+    "idade": 51,
+    "renda_mensal": 4991.69,
+    "historico_credito": "regular",
+    "valor_solicitado": 14318.0,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-067",
+    "idade": 50,
+    "renda_mensal": 8492.83,
+    "historico_credito": "bom",
+    "valor_solicitado": 14600.15,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-068",
+    "idade": 70,
+    "renda_mensal": 2159.98,
+    "historico_credito": "ruim",
+    "valor_solicitado": 13318.81,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-069",
+    "idade": 63,
+    "renda_mensal": 9901.18,
+    "historico_credito": "regular",
+    "valor_solicitado": 3989.11,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-070",
+    "idade": 25,
+    "renda_mensal": 9960.05,
+    "historico_credito": "regular",
+    "valor_solicitado": 17020.43,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-071",
+    "idade": 53,
+    "renda_mensal": 6928.08,
+    "historico_credito": "regular",
+    "valor_solicitado": 13929.64,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-072",
+    "idade": 69,
+    "renda_mensal": 13440.08,
+    "historico_credito": "regular",
+    "valor_solicitado": 5462.02,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-073",
+    "idade": 18,
+    "renda_mensal": 1946.98,
+    "historico_credito": "ruim",
+    "valor_solicitado": 22110.02,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-074",
+    "idade": 69,
+    "renda_mensal": 8559.0,
+    "historico_credito": "regular",
+    "valor_solicitado": 9318.43,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-075",
+    "idade": 34,
+    "renda_mensal": 10850.75,
+    "historico_credito": "regular",
+    "valor_solicitado": 13026.04,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-076",
+    "idade": 69,
+    "renda_mensal": 7362.1,
+    "historico_credito": "ruim",
+    "valor_solicitado": 22728.02,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-077",
+    "idade": 38,
+    "renda_mensal": 7678.35,
+    "historico_credito": "bom",
+    "valor_solicitado": 11242.05,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-078",
+    "idade": 46,
+    "renda_mensal": 13946.6,
+    "historico_credito": "bom",
+    "valor_solicitado": 24198.06,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-079",
+    "idade": 22,
+    "renda_mensal": 10255.4,
+    "historico_credito": "regular",
+    "valor_solicitado": 9568.15,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-080",
+    "idade": 65,
+    "renda_mensal": 13064.6,
+    "historico_credito": "bom",
+    "valor_solicitado": 11510.17,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-081",
+    "idade": 23,
+    "renda_mensal": 1502.89,
+    "historico_credito": "ruim",
+    "valor_solicitado": 13891.47,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-082",
+    "idade": 57,
+    "renda_mensal": 12215.9,
+    "historico_credito": "bom",
+    "valor_solicitado": 3460.06,
+    "prazo": 6
+  },
+  {
+    "id": "PROP-083",
+    "idade": 66,
+    "renda_mensal": 8877.06,
+    "historico_credito": "regular",
+    "valor_solicitado": 16877.69,
+    "prazo": 12
+  },
+  {
+    "id": "PROP-084",
+    "idade": 27,
+    "renda_mensal": 1569.27,
+    "historico_credito": "ruim",
+    "valor_solicitado": 14785.1,
+    "prazo": 12
+  },
+  {
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12
+  },
+  {
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12,
+    "id": 123
+  },
+  {
+    "idade": 30,
+    "renda_mensal": 4000.0,
+    "historico_credito": "bom",
+    "valor_solicitado": 4800.0,
+    "prazo": 12,
+    "id": ""
+  }
+]
