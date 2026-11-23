@@ -12,9 +12,11 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 CAMINHO_DATASET = RAIZ / "data" / "propostas.json"
+# .git e __pycache__ nao sao codigo da equipe e saida/ e gerada a cada execucao
 PASTAS_IGNORADAS = {".git", "__pycache__", "saida"}
 MINIMO_DE_CASOS = 5
 LINGUAGENS = (("Python", "*.py"), ("Prolog", "*.pl"), ("Lisp", "*.lisp"))
+# um predicado e um nome distinto no inicio de linha: varias clausulas do mesmo nome contam uma vez
 PADRAO_CLAUSULA_PROLOG = re.compile(r"^([a-z][A-Za-z0-9_]*)")
 PADRAO_DEFUN_LISP = re.compile(r"\(defun\s", re.IGNORECASE)
 PADRAO_TESTE = re.compile(r"^\s+def test_", re.MULTILINE)
@@ -29,7 +31,8 @@ def listar_arquivos(padrao: str) -> list[Path]:
 
 def contar_linhas_de_codigo(caminho: Path) -> int:
     linhas = caminho.read_text(encoding="utf-8").splitlines()
-    return sum(1 for linha in linhas if linha.strip())
+    # linhas em branco e de comentario nao contam como codigo (comentarios: #, % e ;)
+    return sum(1 for linha in linhas if linha.strip() and not linha.strip().startswith(("#", "%", ";")))
 
 
 def contar_funcoes_python(caminho: Path) -> int:
@@ -74,11 +77,13 @@ def mostrar_metricas_de_codigo() -> None:
 
 def escolher_casos(quantidade: int) -> list[dict]:
     registros = [r for r in json.loads(CAMINHO_DATASET.read_text(encoding="utf-8")) if isinstance(r, dict)]
+    # amostra espacada pelo dataset (e nao so os primeiros) para misturar aprovados, reprovados e erros
     passo = max(1, len(registros) // quantidade)
     return registros[::passo][:quantidade]
 
 
 def medir_tempos(quantidade: int) -> None:
+    # sem as ferramentas a medicao e pulada em vez de falhar
     if shutil.which("swipl") is None or shutil.which("sbcl") is None:
         print("Tempo de execucao: swipl e/ou sbcl nao encontrados, medicao nao realizada")
         return
@@ -90,6 +95,7 @@ def medir_tempos(quantidade: int) -> None:
     tempos = []
     print(f"\nTempo de execucao em {quantidade} casos:")
     for caso in escolher_casos(quantidade):
+        # perf_counter e um relogio monotonico de alta resolucao, proprio para medir duracoes
         inicio = time.perf_counter()
         resultado = orquestrador.processar(caso)
         duracao = time.perf_counter() - inicio
@@ -99,6 +105,7 @@ def medir_tempos(quantidade: int) -> None:
 
 
 def quantidade_de_casos(texto: str) -> int:
+    # o enunciado exige o tempo medio em pelo menos 5 casos
     quantidade = int(texto)
     if quantidade < MINIMO_DE_CASOS:
         raise argparse.ArgumentTypeError(f"informe pelo menos {MINIMO_DE_CASOS} casos")

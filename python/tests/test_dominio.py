@@ -54,6 +54,7 @@ class TestCliente(unittest.TestCase):
     def test_renda_inteira_vira_float(self):
         self.assertIsInstance(Cliente(30, 3500, "bom").renda_mensal, float)
 
+    # 17 anos e dado valido; reprova-lo e regra do Prolog, nao do dominio
     def test_idade_17_e_aceita_pelo_dominio(self):
         self.assertEqual(Cliente(17, 3500.0, "bom").idade, 17)
 
@@ -99,10 +100,12 @@ class TestProposta(unittest.TestCase):
         self.assertEqual(proposta.parcela_base, 350.0)
         self.assertEqual(proposta.comprometimento_percentual, 10.0)
 
+    # caso de borda: 30% exatos devem continuar elegiveis
     def test_comprometimento_exatamente_30_porcento(self):
         proposta = Proposta.de_registro(registro_valido(renda_mensal=1500.0, valor_solicitado=5400.0))
         self.assertEqual(proposta.comprometimento_percentual, 30.0)
 
+    # o arredondamento protege a comparacao com 30 contra ruido de ponto flutuante
     def test_comprometimento_arredondado_a_4_casas(self):
         proposta = Proposta.de_registro(registro_valido(renda_mensal=3000.0, valor_solicitado=1000.0, prazo=6))
         self.assertEqual(proposta.comprometimento_percentual, 5.5556)
@@ -130,6 +133,7 @@ class TestProposta(unittest.TestCase):
         }
         self.assertEqual(Proposta.de_registro(registro_valido()).para_lisp(), esperado)
 
+    # so prazo <= 0 e erro de validacao; 24, por exemplo, segue para o Prolog reprovar
     def test_prazo_positivo_fora_de_6_e_12_e_aceito_para_o_prolog_reprovar(self):
         self.assertEqual(Proposta.de_registro(registro_valido(prazo=7)).prazo, 7)
 
@@ -209,6 +213,7 @@ class TestAnaliseRisco(unittest.TestCase):
             "erro": "chave ausente: prazo",
         })
 
+    # copias impedem que quem recebe o dict altere o estado interno da analise
     def test_para_dict_devolve_copias(self):
         analise = AnaliseRisco("PROP-001")
         analise.reprovar(["prazo_invalido"])
@@ -242,6 +247,7 @@ class TestMergeSort(unittest.TestCase):
         self.assertEqual(merge_sort([1, 2, 3, 4], lambda x: x), [1, 2, 3, 4])
         self.assertEqual(merge_sort([4, 3, 2, 1], lambda x: x), [1, 2, 3, 4])
 
+    # estabilidade: itens com a mesma chave mantem a ordem original
     def test_e_estavel_com_chaves_iguais(self):
         itens = [("a", 2), ("b", 1), ("c", 2), ("d", 1)]
         self.assertEqual(merge_sort(itens, lambda item: item[1]),

@@ -1,10 +1,4 @@
 # Responsavel: Anderson
-"""Fronteiras com os processos externos (SWI-Prolog e SBCL) via JSON em stdin/stdout.
-
-Heranca justificada: ModuloExterno concentra o que Prolog e Lisp tem em comum
-(rodar subprocesso, timeout, parse do JSON, validar a resposta). Cada subclasse
-so diz QUAL comando roda e QUAIS chaves a resposta deve ter (polimorfismo).
-"""
 from __future__ import annotations
 
 import json
@@ -15,9 +9,12 @@ from typing import Any
 
 from python.dominio import ErroIntegracao
 
+# caminhos montados a partir da raiz do projeto: funcionam mesmo se o main for chamado de outra pasta
 RAIZ = Path(__file__).resolve().parent.parent
 
 
+# heranca justificada: Prolog e Lisp compartilham a execucao do subprocesso, o timeout e a
+# validacao do JSON; as subclasses so definem quais chaves a resposta deve ter (polimorfismo)
 class ModuloExterno(ABC):
     def __init__(self, comando: list[str], timeout: float = 10.0) -> None:
         self._comando = comando
@@ -26,33 +23,35 @@ class ModuloExterno(ABC):
     @property
     @abstractmethod
     def chaves_saida(self) -> tuple[str, ...]:
-        """Chaves obrigatorias na resposta, conforme o contrato."""
+        raise NotImplementedError
 
     def executar(self, mensagem: dict[str, Any]) -> dict[str, Any]:
+        # o timeout transforma um processo travado em ErroIntegracao; o subprocess.run encerra o filho
         try:
-            # subprocess.run mata o processo filho ao estourar o timeout.
-            proc = subprocess.run(self._comando, input=json.dumps(mensagem),
-                                  capture_output=True, text=True,
-                                  encoding="utf-8", timeout=self._timeout)
+            processo = subprocess.run(self._comando, input=json.dumps(mensagem),
+                                      capture_output=True, text=True,
+                                      encoding="utf-8", timeout=self._timeout)
         except FileNotFoundError:
             raise ErroIntegracao(f"executavel nao encontrado: {self._comando[0]}") from None
         except subprocess.TimeoutExpired:
             raise ErroIntegracao(f"tempo limite de {self._timeout}s excedido") from None
-        if proc.returncode != 0:
-            raise ErroIntegracao(f"codigo de retorno {proc.returncode}: {proc.stderr.strip()}")
+        # o stderr do filho vai na mensagem para facilitar o diagnostico
+        if processo.returncode != 0:
+            raise ErroIntegracao(f"codigo de retorno {processo.returncode}: {processo.stderr.strip()}")
         try:
-            resposta = json.loads(proc.stdout)
-        except json.JSONDecodeError as e:
-            raise ErroIntegracao(f"saida malformada ({e}); stderr: {proc.stderr.strip()}") from None
+            resposta = json.loads(processo.stdout)
+        except json.JSONDecodeError as erro:
+            raise ErroIntegracao(f"saida malformada ({erro}); stderr: {processo.stderr.strip()}") from None
         self._validar(resposta, mensagem)
         return resposta
 
     def _validar(self, resposta: Any, mensagem: dict[str, Any]) -> None:
         if not isinstance(resposta, dict):
             raise ErroIntegracao("resposta nao e um objeto JSON")
-        ausentes = [c for c in self.chaves_saida if c not in resposta]
+        ausentes = [chave for chave in self.chaves_saida if chave not in resposta]
         if ausentes:
             raise ErroIntegracao("resposta sem as chaves: " + ", ".join(ausentes))
+        # conferir o id evita associar a resposta de um processo a outra proposta
         if resposta["id"] != mensagem["id"]:
             raise ErroIntegracao(f"id divergente: enviado {mensagem['id']!r}, recebido {resposta['id']!r}")
 
@@ -71,10 +70,11 @@ class ModuloLisp(ModuloExterno):
 
 
 def criar_modulo_prolog(timeout: float = 10.0) -> ModuloProlog:
+    # -q silencia o banner, -g main executa main/0 e -t halt encerra ao terminar
     return ModuloProlog(["swipl", "-q", "-g", "main", "-t", "halt",
                          str(RAIZ / "prolog" / "elegibilidade.pl")], timeout)
 
 
 def criar_modulo_lisp(timeout: float = 20.0) -> ModuloLisp:
-    # Timeout maior: na primeira execucao o ASDF compila o yason.
+    # timeout maior: na primeira execucao o SBCL compila o yason antes de responder
     return ModuloLisp(["sbcl", "--script", str(RAIZ / "lisp" / "precificacao.lisp")], timeout)

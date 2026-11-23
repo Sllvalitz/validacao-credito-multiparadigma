@@ -7,6 +7,8 @@ from typing import Any, Callable, TypeVar
 T = TypeVar("T")
 
 
+# o orquestrador trata ErroValidacao e ErroIntegracao separadamente para gerar o status certo;
+# a base ErroCredito permite capturar os dois de uma vez
 class ErroCredito(Exception):
     pass
 
@@ -32,6 +34,7 @@ def _exigir_texto(valor: Any, nome: str) -> str:
 
 
 def _exigir_inteiro(valor: Any, nome: str) -> int:
+    # bool e subclasse de int em Python: sem este teste, True passaria como idade ou prazo
     if isinstance(valor, bool) or not isinstance(valor, int):
         raise ErroValidacao(f"{nome} deve ser um numero inteiro")
     return valor
@@ -40,6 +43,7 @@ def _exigir_inteiro(valor: Any, nome: str) -> int:
 def _exigir_numero(valor: Any, nome: str) -> float:
     if isinstance(valor, bool) or not isinstance(valor, (int, float)):
         raise ErroValidacao(f"{nome} deve ser um numero")
+    # nan e inf passam no isinstance, mas quebrariam os calculos e gerariam JSON invalido
     if not math.isfinite(valor):
         raise ErroValidacao(f"{nome} deve ser um numero finito")
     return float(valor)
@@ -48,11 +52,14 @@ def _exigir_numero(valor: Any, nome: str) -> float:
 class Cliente:
     def __init__(self, idade: int, renda_mensal: float, historico_credito: str) -> None:
         self._idade = _exigir_inteiro(idade, "idade")
+        # idade negativa e dado corrompido; idade abaixo de 18 e regra de negocio, decidida pelo Prolog
         if self._idade < 0:
             raise ErroValidacao("idade nao pode ser negativa")
         self._renda_mensal = _exigir_numero(renda_mensal, "renda_mensal")
+        # renda positiva evita divisao por zero no comprometimento; o minimo de R$ 1.500 e do Prolog
         if self._renda_mensal <= 0:
             raise ErroValidacao("renda_mensal deve ser maior que zero")
+        # qualquer texto e aceito aqui: decidir se o historico serve e regra do Prolog
         self._historico_credito = _exigir_texto(historico_credito, "historico_credito")
 
     @property
@@ -68,6 +75,7 @@ class Cliente:
         return self._historico_credito
 
 
+# composicao: uma Proposta TEM um Cliente (uma proposta nao e um tipo de cliente)
 class Proposta:
     def __init__(self, id_proposta: str, cliente: Cliente,
                  valor_solicitado: float, prazo: int) -> None:
@@ -77,6 +85,7 @@ class Proposta:
         if self._valor_solicitado <= 0:
             raise ErroValidacao("valor_solicitado deve ser maior que zero")
         self._prazo = _exigir_inteiro(prazo, "prazo")
+        # prazo positivo evita divisao por zero na parcela; que ele seja 6 ou 12 e regra do Prolog
         if self._prazo <= 0:
             raise ErroValidacao("prazo deve ser maior que zero")
 
@@ -115,6 +124,8 @@ class Proposta:
 
     @property
     def comprometimento_percentual(self) -> float:
+        # o arredondamento evita ruido de ponto flutuante: sem ele, 30% exatos poderiam virar
+        # 30.000000000000004 e ser reprovados
         return round(self.parcela_base / self._cliente.renda_mensal * 100, 4)
 
     def para_prolog(self) -> dict[str, Any]:
@@ -139,6 +150,8 @@ class Proposta:
         }
 
 
+# guarda o resultado final de uma proposta; reprovar, aprovar e registrar_erro sao caminhos
+# exclusivos e cada um limpa os campos dos outros, para nao sobrar estado de outro caminho
 class AnaliseRisco:
     def __init__(self, id_proposta: str) -> None:
         self._id_proposta = id_proposta
@@ -209,6 +222,8 @@ def _intercalar(esquerda: list[T], direita: list[T], chave: Callable[[T], float]
     return resultado
 
 
+# merge sort feito a mao (algoritmo classico exigido pelo enunciado), sem sorted();
+# e estavel porque _intercalar usa <=, entao chaves iguais mantem a ordem original
 def merge_sort(itens: list[T], chave: Callable[[T], float]) -> list[T]:
     if len(itens) <= 1:
         return list(itens)
@@ -217,5 +232,6 @@ def merge_sort(itens: list[T], chave: Callable[[T], float]) -> list[T]:
 
 
 def ordenar_aprovadas_por_valor(analises: list[AnaliseRisco]) -> list[AnaliseRisco]:
+    # reprovadas e com erro nao tem valor aprovado, por isso ficam de fora
     aprovadas = [analise for analise in analises if analise.aprovada]
     return merge_sort(aprovadas, lambda analise: analise.valor_aprovado)
