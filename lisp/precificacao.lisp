@@ -1,4 +1,4 @@
-;;;; Responsavel: Isabelle
+;;;; Responsavel: Isabelle Stefany Silva Dias
 
 (require :asdf)
 

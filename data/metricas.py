@@ -1,4 +1,4 @@
-# Responsavel: Robson
+# Responsavel: Robson Gabriel de Oliveira Lima
 from __future__ import annotations
 
 import argparse

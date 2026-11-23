@@ -450,23 +450,23 @@ Execute o comando na raiz do projeto ou gere o arquivo de novo com `python3 data
     <th align="center">Responsabilidade</th>
   </tr>
   <tr>
-    <td align="left"><strong>Anderson</strong></td>
+    <td align="left"><strong>Anderson da Silva Pinto</strong></td>
     <td align="left">Orquestrador, integração entre os módulos, contrato JSON e repositório</td>
   </tr>
   <tr>
-    <td align="left"><strong>Lucy</strong></td>
+    <td align="left"><strong>Luciene da Costa Martins</strong></td>
     <td align="left">Classes de domínio em Python (orientação a objetos) e testes unitários</td>
   </tr>
   <tr>
-    <td align="left"><strong>Chico</strong></td>
+    <td align="left"><strong>Pedro Rodrigues Pinto Neto</strong></td>
     <td align="left">Motor lógico em Prolog</td>
   </tr>
   <tr>
-    <td align="left"><strong>Isabelle</strong></td>
+    <td align="left"><strong>Isabelle Stefany Silva Dias</strong></td>
     <td align="left">Núcleo funcional em Common Lisp</td>
   </tr>
   <tr>
-    <td align="left"><strong>Robson</strong></td>
+    <td align="left"><strong>Robson Gabriel de Oliveira Lima</strong></td>
     <td align="left">Dataset, testes de integração e métricas</td>
   </tr>
 </table>

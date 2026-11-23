@@ -1,4 +1,4 @@
-# Responsavel: Anderson
+# Responsavel: Anderson da Silva Pinto
 from __future__ import annotations
 
 import argparse

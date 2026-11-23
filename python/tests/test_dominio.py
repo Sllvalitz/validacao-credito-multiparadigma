@@ -1,4 +1,4 @@
-# Responsavel: Lucy
+# Responsavel: Luciene da Costa Martins
 import unittest
 
 from python.dominio import (

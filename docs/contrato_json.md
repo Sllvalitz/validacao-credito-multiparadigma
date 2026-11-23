@@ -1,4 +1,4 @@
-<!-- Responsavel: Anderson. Mudancas exigem aprovacao dos 5 integrantes. -->
+<!-- Responsavel: Anderson da Silva Pinto. Mudancas exigem aprovacao dos 5 integrantes. -->
 # Contrato de Integração JSON — v1.1
 
 Todas as mensagens: JSON em UTF-8, uma por execução, via `stdin` (entrada) e `stdout` (saída).

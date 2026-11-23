@@ -1,4 +1,4 @@
-# Responsavel: Lucy
+# Responsavel: Luciene da Costa Martins
 from __future__ import annotations
 
 import math
