@@ -238,7 +238,7 @@ Para cada proposta, o orquestrador em Python valida os dados, monta os objetos d
 
 ```bash
 sudo apt update
-sudo apt install -y git python3 swi-prolog-nox sbcl cl-yason
+sudo apt install -y git python3 swi-prolog-nox sbcl cl-yason cl-alexandria cl-babel cl-trivial-gray-streams
 ```
 
 </details>
@@ -281,7 +281,7 @@ sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:insta
 
 </details>
 
-> 💡 No Ubuntu e no WSL2, o pacote `cl-yason` já instala o yason e as dependências dele. No Windows nativo, o Quicklisp faz esse papel e o código Lisp o encontra na pasta `quicklisp` do seu usuário sozinho.
+> 💡 No Ubuntu e no WSL2, o `cl-yason` precisa dos pacotes `cl-alexandria`, `cl-babel` e `cl-trivial-gray-streams`, que em versões novas do Ubuntu **não** são instalados automaticamente. No Windows nativo, o Quicklisp faz esse papel e o código Lisp o encontra na pasta `quicklisp` do seu usuário sozinho.
 
 ### Passo 2: baixar o projeto
 
@@ -422,11 +422,11 @@ O programa não está no `PATH`. Reinstale pelo Passo 1 e abra um novo terminal 
 </details>
 
 <details>
-<summary><strong>Erro "yason nao encontrado"</strong></summary>
+<summary><strong>Erro "falha ao carregar o yason" ou <code>ERRO_INTEGRACAO</code> em todas as propostas aprovadas</strong></summary>
 
 <br>
 
-No Ubuntu e no WSL2, instale `cl-yason`. No Windows nativo, rode o Quicklisp do Passo 1 e confirme que a pasta `quicklisp` existe dentro da pasta do seu usuário.
+No Ubuntu e no WSL2, instale `sudo apt install cl-yason cl-alexandria cl-babel cl-trivial-gray-streams`. No Windows nativo, rode o Quicklisp do Passo 1 e confirme que a pasta `quicklisp` existe dentro da pasta do seu usuário.
 
 </details>
 

@@ -4,20 +4,27 @@
 
 ;; silencia stdout e stderr: na primeira execucao o ASDF imprime mensagens de compilacao,
 ;; que corromperiam o JSON de resposta em stdout
+;; o handler-case fica por fora do let: o erro e tratado depois que o *error-output* silenciado
+;; sai de escopo, senao uma falha ao carregar o yason sumiria sem nenhuma mensagem
 (defun carregar-yason-em-silencio ()
-  (let ((*standard-output* (make-broadcast-stream))
-        (*error-output* (make-broadcast-stream))
-        (*load-verbose* nil)
-        (*compile-verbose* nil)
-        (*compile-print* nil)
-        (configuracao-quicklisp
-          (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
-    ;; usa o Quicklisp se estiver instalado (Windows nativo); senao o ASDF acha o yason do apt
-    (when (probe-file configuracao-quicklisp)
-      (load configuracao-quicklisp))
-    (if (find-package "QL")
-        (funcall (find-symbol "QUICKLOAD" "QL") "yason" :silent t)
-        (asdf:load-system "yason"))))
+  (handler-case
+      (let ((*standard-output* (make-broadcast-stream))
+            (*error-output* (make-broadcast-stream))
+            (*load-verbose* nil)
+            (*compile-verbose* nil)
+            (*compile-print* nil)
+            (configuracao-quicklisp
+              (merge-pathnames "quicklisp/setup.lisp" (user-homedir-pathname))))
+        ;; usa o Quicklisp se estiver instalado (Windows nativo); senao o ASDF acha o yason do apt
+        (when (probe-file configuracao-quicklisp)
+          (load configuracao-quicklisp))
+        (if (find-package "QL")
+            (funcall (find-symbol "QUICKLOAD" "QL") "yason" :silent t)
+            (asdf:load-system "yason")))
+    (error (erro)
+      (format *error-output* "falha ao carregar o yason: ~A~%" erro)
+      (finish-output *error-output*)
+      (sb-ext:exit :code 1))))
 
 (carregar-yason-em-silencio)
 
