@@ -433,11 +433,9 @@ Faça isso dentro da pasta pessoal do Ubuntu (`~`) e **não** em `/mnt/c`, que �
 
 ```bash
 cd ~
-git clone https://github.com/<usuario>/validacao-credito-multiparadigma.git
+git clone https://github.com/Sllvalitz/validacao-credito-multiparadigma.git
 cd validacao-credito-multiparadigma
 ```
-
-Troque `<usuario>` pelo usuário ou organização dona do repositório. Se o repositório for **privado**, o Git pede usuário e, no lugar da senha, um **token de acesso pessoal** do GitHub.
 
 </details>
 
