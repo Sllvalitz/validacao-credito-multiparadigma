@@ -87,16 +87,16 @@ sequenceDiagram
     participant P as Python (orquestrador)
     participant L as Prolog (regras)
     participant F as Lisp (precificação)
-    P->>P: valida os dados e calcula parcela base e comprometimento da renda
-    P->>L: mensagem JSON com os indicadores
+    Note over P: valida os dados e calcula<br/>parcela base e comprometimento
+    P->>L: JSON com os indicadores
     L-->>P: elegível? regras satisfeitas e impedimentos
     alt elegível
-        P->>F: mensagem JSON com os dados da proposta
+        P->>F: JSON com os dados da proposta
         F-->>P: risco, taxa, limite, valor aprovado e parcela
     else não elegível
-        P->>P: registra REPROVADO (o Lisp não é acionado)
+        Note over P: registra REPROVADO<br/>(o Lisp não é acionado)
     end
-    P->>P: consolida, ordena, resume e gera o JSON e o relatório HTML
+    Note over P: consolida, ordena, resume e gera<br/>o JSON e o relatório HTML
 ```
 
 <div align="justify">
