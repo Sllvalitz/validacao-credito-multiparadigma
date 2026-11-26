@@ -118,21 +118,59 @@
 (defun tabela-quita-o-saldo-p (tabela)
   (< (abs (saldo-final tabela)) 0.01d0))
 
-(defun precificar (renda historico valor-solicitado prazo comprometimento)
-  (let* ((faixa (classificar-risco historico comprometimento))
-         (taxa (coerce (faixa-taxa faixa) 'double-float))
-         (limite (limite-credito renda prazo))
-         (aprovado (valor-aprovado valor-solicitado limite))
-         (parcela (parcela-price aprovado taxa prazo))
-         (tabela (tabela-amortizacao aprovado taxa parcela 1 prazo)))
+;; pipeline de transformacoes imutaveis (pedido da Opcao 2): cada etapa e uma funcao pura
+;; perfil -> novo perfil. list* devolve uma lista nova que reaproveita a antiga como cauda,
+;; entao o perfil recebido nunca e alterado, e getf encontra primeiro o campo mais recente
+(defun com-campo (perfil chave valor)
+  (list* chave valor perfil))
+
+(defun etapa-classificar-risco (perfil)
+  (com-campo perfil :faixa
+             (classificar-risco (getf perfil :historico) (getf perfil :comprometimento))))
+
+(defun etapa-aplicar-taxa (perfil)
+  (com-campo perfil :taxa (coerce (faixa-taxa (getf perfil :faixa)) 'double-float)))
+
+(defun etapa-calcular-limite (perfil)
+  (com-campo perfil :limite (limite-credito (getf perfil :renda) (getf perfil :prazo))))
+
+(defun etapa-calcular-aprovado (perfil)
+  (com-campo perfil :aprovado
+             (valor-aprovado (getf perfil :valor-solicitado) (getf perfil :limite))))
+
+(defun etapa-calcular-parcela (perfil)
+  (com-campo perfil :parcela
+             (parcela-price (getf perfil :aprovado) (getf perfil :taxa) (getf perfil :prazo))))
+
+(defun etapa-verificar-amortizacao (perfil)
+  (let ((tabela (tabela-amortizacao (getf perfil :aprovado) (getf perfil :taxa)
+                                    (getf perfil :parcela) 1 (getf perfil :prazo))))
     (unless (tabela-quita-o-saldo-p tabela)
       (error "tabela de amortizacao nao quita o saldo"))
+    (com-campo perfil :tabela tabela)))
+
+;; a ordem das etapas e a ordem do calculo: cada uma usa campos produzidos pelas anteriores
+(defparameter *pipeline-precificacao*
+  (list #'etapa-classificar-risco
+        #'etapa-aplicar-taxa
+        #'etapa-calcular-limite
+        #'etapa-calcular-aprovado
+        #'etapa-calcular-parcela
+        #'etapa-verificar-amortizacao))
+
+;; reduce encadeia as etapas: a saida de cada uma e a entrada da proxima
+(defun executar-pipeline (etapas perfil)
+  (reduce (lambda (atual etapa) (funcall etapa atual)) etapas :initial-value perfil))
+
+(defun precificar (perfil)
+  (let* ((final (executar-pipeline *pipeline-precificacao* perfil))
+         (faixa (getf final :faixa)))
     (list :status (faixa-status faixa)
           :classificacao-risco (faixa-nome faixa)
           :taxa-juros-mensal (faixa-taxa faixa)
-          :limite-calculado limite
-          :valor-aprovado aprovado
-          :valor-parcela-final (arredondar-centavos parcela))))
+          :limite-calculado (getf final :limite)
+          :valor-aprovado (getf final :aprovado)
+          :valor-parcela-final (arredondar-centavos (getf final :parcela)))))
 
 ;; os campos sao validados na fronteira: se o JSON vier com tipo errado o programa sai com erro
 ;; em vez de calcular e produzir uma resposta incorreta
@@ -167,11 +205,11 @@
         (error "campo ~A deve ser texto" chave))))
 
 (defun precificar-proposta (proposta)
-  (precificar (campo-numerico-positivo proposta "renda_mensal")
-              (campo-texto proposta "historico_credito")
-              (campo-numerico-positivo proposta "valor_solicitado")
-              (campo-prazo proposta)
-              (campo-comprometimento proposta)))
+  (precificar (list :renda (campo-numerico-positivo proposta "renda_mensal")
+                    :historico (campo-texto proposta "historico_credito")
+                    :valor-solicitado (campo-numerico-positivo proposta "valor_solicitado")
+                    :prazo (campo-prazo proposta)
+                    :comprometimento (campo-comprometimento proposta))))
 
 ;; formata com casas fixas e sem o sufixo d0: o ~A de um double imprimiria 4200.0d0,
 ;; que nao e JSON valido

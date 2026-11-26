@@ -2,45 +2,32 @@
 
 # Validação de Crédito Multiparadigma
 
-**Python orientado a objetos · SWI-Prolog lógico · Common Lisp funcional**
+**Um mesmo problema resolvido por três paradigmas de programação, trabalhando juntos**
 
 <br>
 
-<img src="https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.12">
-<img src="https://img.shields.io/badge/SWI--Prolog-9.x-E0301E?style=for-the-badge" alt="SWI-Prolog 9.x">
-<img src="https://img.shields.io/badge/Common%20Lisp-SBCL%202.x-3AB3E0?style=for-the-badge" alt="Common Lisp SBCL">
+<img src="https://img.shields.io/badge/Python-3.12%20a%203.14-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+<img src="https://img.shields.io/badge/SWI--Prolog-9.x-E0301E?style=for-the-badge" alt="SWI-Prolog">
+<img src="https://img.shields.io/badge/Common%20Lisp-SBCL-3AB3E0?style=for-the-badge" alt="Common Lisp SBCL">
 <br>
-<img src="https://img.shields.io/badge/Testes-49%20passando-success?style=for-the-badge" alt="49 testes passando">
-<img src="https://img.shields.io/badge/UFMA-Laborat%C3%B3rio%20de%20Programa%C3%A7%C3%A3o-0B3D91?style=for-the-badge" alt="UFMA">
+<img src="https://img.shields.io/badge/Testes-70%20passando-success?style=for-the-badge" alt="70 testes passando">
+<img src="https://img.shields.io/badge/Windows-WSL2%20%2B%20Ubuntu-0078D4?style=for-the-badge&logo=windows&logoColor=white" alt="Windows com WSL2">
 
 <br><br>
 
-<em>Trabalho Final de Laboratório de Programação · 2026.2</em>
+<em>Trabalho Final de Laboratório de Programação · 2026.2 · Universidade Federal do Maranhão</em>
 
-</div>
+<br><br>
 
----
+<a href="#sobre-o-projeto">Sobre</a> ·
+<a href="#como-funciona">Como funciona</a> ·
+<a href="#regras-de-negócio">Regras</a> ·
+<a href="#instalação-no-windows">Instalação</a> ·
+<a href="#executando-o-projeto">Executando</a> ·
+<a href="#testes-e-métricas">Testes</a> ·
+<a href="#solução-de-problemas">Problemas</a> ·
+<a href="#autoria">Autoria</a>
 
-## Sumário
-
-<div align="center">
-<table>
-  <tr>
-    <td align="left">
-      <a href="#sobre-o-projeto">Sobre o projeto</a><br>
-      <a href="#como-funciona">Como funciona</a><br>
-      <a href="#regras-de-negócio">Regras de negócio</a><br>
-      <a href="#instalação-e-execução">Instalação e execução</a><br>
-      <a href="#testes-e-métricas">Testes e métricas</a>
-    </td>
-    <td align="left">
-      <a href="#contrato-json">Contrato JSON</a><br>
-      <a href="#estrutura-do-projeto">Estrutura do projeto</a><br>
-      <a href="#solução-de-problemas">Solução de problemas</a><br>
-      <a href="#autoria">Autoria</a>
-    </td>
-  </tr>
-</table>
 </div>
 
 ---
@@ -48,7 +35,40 @@
 ## Sobre o projeto
 
 <div align="justify">
-Sistema acadêmico de <strong>validação de crédito</strong> que lê propostas fictícias de clientes, decide se cada uma é elegível e, quando for, calcula o <strong>risco</strong>, a <strong>taxa de juros</strong>, o <strong>limite de crédito</strong> e o <strong>valor da parcela</strong>. O mesmo problema é resolvido combinando três paradigmas de programação, e cada um assume a parte para a qual é mais adequado: objetos para modelar e coordenar, lógica para as regras de elegibilidade e funções puras para o cálculo financeiro.
+Este sistema analisa <strong>propostas de crédito</strong> de clientes fictícios e decide o que fazer com cada uma: <strong>aprovar</strong>, <strong>aprovar com condições</strong> ou <strong>reprovar</strong>. Para as propostas aprovadas, ele ainda calcula o <strong>risco</strong> do cliente, a <strong>taxa de juros</strong>, o <strong>limite de crédito</strong>, o <strong>valor aprovado</strong> e a <strong>parcela mensal</strong>.
+</div>
+
+<br>
+
+<div align="justify">
+O objetivo acadêmico é resolver esse problema com <strong>três paradigmas</strong> e comparar o que cada um oferece. Em vez de três programas separados, eles formam <strong>um sistema só</strong>: cada paradigma cuida da parte para a qual é mais adequado, e os três conversam por mensagens JSON.
+</div>
+
+<br>
+
+<div align="center">
+<table>
+  <tr>
+    <th align="center">Paradigma</th>
+    <th align="center">Pergunta que responde</th>
+    <th align="center">O que faz neste projeto</th>
+  </tr>
+  <tr>
+    <td align="left"><strong>Orientado a objetos</strong><br><sub>Python</sub></td>
+    <td align="left"><em>Quais entidades existem e o que cada uma sabe fazer?</em></td>
+    <td align="left">Modela <code>Cliente</code>, <code>Proposta</code> e <code>AnaliseRisco</code>, valida os dados, coordena os outros dois módulos e apresenta o resultado</td>
+  </tr>
+  <tr>
+    <td align="left"><strong>Lógico</strong><br><sub>SWI-Prolog</sub></td>
+    <td align="left"><em>Quais fatos são verdadeiros e quais regras se aplicam?</em></td>
+    <td align="left">Decide a <strong>elegibilidade</strong> com fatos e regras e informa quais critérios foram atendidos e quais impedem a aprovação</td>
+  </tr>
+  <tr>
+    <td align="left"><strong>Funcional</strong><br><sub>Common Lisp (SBCL)</sub></td>
+    <td align="left"><em>Como um dado se transforma em outro?</em></td>
+    <td align="left">Transforma o perfil do cliente, etapa por etapa, até chegar a risco, taxa, limite, valor aprovado e parcela</td>
+  </tr>
+</table>
 </div>
 
 <br>
@@ -59,50 +79,150 @@ Sistema acadêmico de <strong>validação de crédito</strong> que lê propostas
 
 ## Como funciona
 
+### O caminho de cada proposta
+
 ```mermaid
-flowchart LR
-    A[("data/propostas.json")] --> B["Python<br/>Orquestrador (OO)"]
-    B -- "JSON via stdin" --> C["SWI-Prolog<br/>Elegibilidade (lógico)"]
-    C -- "parecer JSON" --> B
-    B -- "só se elegível" --> D["Common Lisp<br/>Precificação (funcional)"]
-    D -- "preço JSON" --> B
-    B --> E[("saida/resultados.json")]
+sequenceDiagram
+    autonumber
+    participant P as Python (orquestrador)
+    participant L as Prolog (regras)
+    participant F as Lisp (precificação)
+    P->>P: valida os dados e calcula parcela base e comprometimento da renda
+    P->>L: mensagem JSON com os indicadores
+    L-->>P: elegível? regras satisfeitas e impedimentos
+    alt elegível
+        P->>F: mensagem JSON com os dados da proposta
+        F-->>P: risco, taxa, limite, valor aprovado e parcela
+    else não elegível
+        P->>P: registra REPROVADO (o Lisp não é acionado)
+    end
+    P->>P: consolida, ordena, resume e gera o JSON e o relatório HTML
 ```
 
 <div align="justify">
-Para cada proposta, o orquestrador em Python valida os dados, monta os objetos de domínio e consulta o Prolog. Se o parecer for negativo, a proposta termina como <code>REPROVADO</code> e o Lisp nem é acionado. Se for positivo, o Lisp classifica o risco e calcula os valores. A comunicação entre os processos é feita por JSON em <code>stdin</code> e <code>stdout</code>, seguindo o <a href="docs/contrato_json.md">contrato de integração</a>. Um registro com problema nunca interrompe o lote.
+O Python lê o arquivo de propostas e processa <strong>uma de cada vez</strong>. Uma proposta com problema <strong>nunca interrompe o lote</strong>: o erro vira um status no resultado e o programa segue para a próxima. A comunicação com o Prolog e o Lisp usa JSON pela entrada e saída padrão (<code>stdin</code> e <code>stdout</code>), no formato descrito no <a href="docs/contrato_json.md">contrato de integração</a>.
 </div>
 
-<br>
+### O que o sistema analisa
 
 <div align="center">
 <table>
   <tr>
-    <th align="center">Paradigma</th>
-    <th align="center">Linguagem</th>
-    <th align="center">Responsabilidade</th>
-    <th align="center">Arquivos</th>
+    <th align="center">#</th>
+    <th align="center">Etapa</th>
+    <th align="center">Quem</th>
+    <th align="center">O que analisa</th>
   </tr>
   <tr>
-    <td align="left"><strong>Orientado a objetos</strong></td>
-    <td align="left">Python 3.12</td>
-    <td align="left">Classes <code>Cliente</code>, <code>Proposta</code> e <code>AnaliseRisco</code>, validação, orquestração, ordenação por merge sort e integração com os outros módulos</td>
-    <td align="left"><code>main.py</code><br><code>python/</code></td>
+    <td align="center">1</td>
+    <td align="left"><strong>Validação</strong></td>
+    <td align="center">Python</td>
+    <td align="left">Campos obrigatórios, tipos e valores (renda, prazo e valor positivos, idade não negativa). Se falhar: <code>ERRO_VALIDACAO</code></td>
   </tr>
   <tr>
-    <td align="left"><strong>Lógico</strong></td>
-    <td align="left">SWI-Prolog</td>
-    <td align="left">Fatos e regras de elegibilidade e compliance, com recursão e <code>findall/3</code></td>
-    <td align="left"><code>prolog/elegibilidade.pl</code></td>
+    <td align="center">2</td>
+    <td align="left"><strong>Indicadores</strong></td>
+    <td align="center">Python</td>
+    <td align="left">Parcela base (valor ÷ prazo) e comprometimento da renda (parcela ÷ renda)</td>
   </tr>
   <tr>
-    <td align="left"><strong>Funcional</strong></td>
-    <td align="left">Common Lisp (SBCL)</td>
-    <td align="left">Classificação de risco, juros pela Tabela Price, limite de crédito e tabela de amortização, com funções puras</td>
-    <td align="left"><code>lisp/precificacao.lisp</code></td>
+    <td align="center">3</td>
+    <td align="left"><strong>Elegibilidade</strong></td>
+    <td align="center">Prolog</td>
+    <td align="left">Cinco critérios: renda, idade, prazo, histórico e comprometimento. Devolve o que passou e o que impede</td>
+  </tr>
+  <tr>
+    <td align="center">4</td>
+    <td align="left"><strong>Risco e taxa</strong></td>
+    <td align="center">Lisp</td>
+    <td align="left">Cruza histórico e comprometimento para classificar o risco em baixo, médio ou alto, e define a taxa mensal</td>
+  </tr>
+  <tr>
+    <td align="center">5</td>
+    <td align="left"><strong>Limite e valor aprovado</strong></td>
+    <td align="center">Lisp</td>
+    <td align="left">Limite pela renda, com teto de crédito, e valor aprovado (o menor entre o solicitado e o limite)</td>
+  </tr>
+  <tr>
+    <td align="center">6</td>
+    <td align="left"><strong>Parcela</strong></td>
+    <td align="center">Lisp</td>
+    <td align="left">Parcela pela Tabela Price, conferida por uma tabela de amortização que deve quitar o saldo</td>
+  </tr>
+  <tr>
+    <td align="center">7</td>
+    <td align="left"><strong>Consolidação</strong></td>
+    <td align="center">Python</td>
+    <td align="left">Status final, ranking dos maiores valores aprovados (merge sort da equipe), resumo, JSON e relatório HTML</td>
   </tr>
 </table>
 </div>
+
+### Exemplo: acompanhando uma proposta
+
+<table>
+  <tr>
+    <td valign="top" width="50%">
+
+**PROP-001, aprovada** · cliente de 30 anos, renda de R$ 3.500,00, histórico `bom`, pede R$ 4.200,00 em 12 meses
+
+1. **Python:** parcela base = 4.200 ÷ 12 = **R$ 350,00**, que é **10%** da renda
+2. **Prolog:** os 5 critérios são atendidos, então a proposta é **elegível**
+3. **Lisp:**
+   - risco **baixo** (histórico `bom` e comprometimento até 20%), taxa **1,5% a.m.**
+   - limite = menor entre 3.500 × 0,30 × 12 = 12.600 e o teto de 20.000 = **R$ 12.600,00**
+   - valor aprovado = menor entre 4.200 e 12.600 = **R$ 4.200,00**
+   - parcela pela Tabela Price = **R$ 385,06**
+
+</td>
+    <td valign="top" width="50%">
+
+**PROP-009, reprovada** · cliente de 17 anos, renda de R$ 2.500,00, histórico `bom`, pede R$ 3.000,00 em 6 meses
+
+1. **Python:** parcela base = 3.000 ÷ 6 = **R$ 500,00**, que é **20%** da renda
+2. **Prolog:** renda, prazo, histórico e comprometimento passam, mas a **idade (17) está abaixo do mínimo**. Resultado: **não elegível**, com o impedimento `idade_abaixo_do_minimo`
+3. **Lisp:** **não é acionado**, porque o Prolog já reprovou
+
+Status final: **REPROVADO**
+
+</td>
+  </tr>
+</table>
+
+Para ver esse caminho no seu terminal, use `python3 main.py --detalhe PROP-001`.
+
+### Entrada e saída
+
+Cada proposta do arquivo `data/propostas.json` tem seis campos:
+
+```json
+{
+  "id": "PROP-001",
+  "idade": 30,
+  "renda_mensal": 3500.00,
+  "historico_credito": "bom",
+  "valor_solicitado": 4200.00,
+  "prazo": 12
+}
+```
+
+E o resultado de cada proposta (em `saida/resultados.json`) traz o status final, os impedimentos, se houver, e a precificação:
+
+```json
+{
+  "id": "PROP-001",
+  "status": "APROVADO",
+  "impedimentos": [],
+  "precificacao": {
+    "classificacao_risco": "baixo",
+    "taxa_juros_mensal": 0.015,
+    "limite_calculado": 12600.0,
+    "valor_aprovado": 4200.0,
+    "valor_parcela_final": 385.06
+  },
+  "erro": null
+}
+```
 
 ---
 
@@ -177,7 +297,7 @@ Para cada proposta, o orquestrador em Python valida os dados, monta os objetos d
 <br>
 
 <div align="justify">
-<strong>Cálculos:</strong> o limite é o menor valor entre <code>renda × 0,30 × prazo</code> e o teto de <strong>R$ 20.000,00</strong>. O valor aprovado é o menor entre o valor solicitado e o limite. A parcela final usa juros compostos pela <strong>Tabela Price</strong>: <code>PMT = V · i / (1 − (1 + i)^−n)</code>.
+<strong>Cálculos:</strong> o limite é o menor valor entre <code>renda × 0,30 × prazo</code> e o teto de <strong>R$ 20.000,00</strong>. O valor aprovado é o menor entre o valor solicitado e o limite. A parcela usa juros compostos pela <strong>Tabela Price</strong>: <code>PMT = V · i / (1 − (1 + i)^−n)</code>.
 </div>
 
 <br>
@@ -186,113 +306,113 @@ Para cada proposta, o orquestrador em Python valida os dados, monta os objetos d
 
 ---
 
-## Instalação e execução
+## Instalação no Windows
 
-### Ferramentas necessárias
+O projeto roda no Windows por meio do **WSL2**, que executa um Ubuntu dentro do próprio Windows. Todo o passo a passo abaixo foi seguido e validado dessa forma.
 
 <div align="center">
 <table>
   <tr>
     <th align="center">Ferramenta</th>
-    <th align="center">Versão testada</th>
-    <th align="center">Para quê</th>
+    <th align="center">Para que serve</th>
+    <th align="center">Versões validadas</th>
   </tr>
   <tr>
-    <td align="left"><strong>Git</strong></td>
-    <td align="center">qualquer</td>
-    <td align="left">baixar o projeto</td>
+    <td align="left"><strong>WSL2 + Ubuntu</strong></td>
+    <td align="left">ambiente Linux dentro do Windows</td>
+    <td align="center">WSL 3.0.5 · Ubuntu 26.04</td>
   </tr>
   <tr>
     <td align="left"><strong>Python</strong></td>
-    <td align="center">3.12</td>
     <td align="left">orquestrador (sem pacotes externos)</td>
+    <td align="center">3.14.4 (também 3.12)</td>
   </tr>
   <tr>
     <td align="left"><strong>SWI-Prolog</strong></td>
-    <td align="center">9.0.4</td>
     <td align="left">motor de elegibilidade</td>
+    <td align="center">9.2.9 (também 9.0.4)</td>
   </tr>
   <tr>
     <td align="left"><strong>SBCL</strong></td>
-    <td align="center">2.2.9</td>
-    <td align="left">núcleo de precificação</td>
+    <td align="left">núcleo de precificação em Common Lisp</td>
+    <td align="center">2.6.0 (também 2.2.9)</td>
   </tr>
   <tr>
     <td align="left"><strong>yason</strong></td>
-    <td align="center">biblioteca Lisp</td>
     <td align="left">leitura de JSON no Lisp</td>
+    <td align="center">0.7.6</td>
   </tr>
 </table>
 </div>
 
 <br>
 
-> ⁉️ Validado em **Ubuntu 24.04**. No Windows há duas opções: **WSL2** (recomendada, usa os mesmos comandos do Ubuntu) ou instalação nativa.
+> 💡 Você precisa de um Windows 10 (versão 2004 ou superior) ou Windows 11, com a virtualização ativada na BIOS (o normal nos computadores atuais). A instalação ocupa cerca de **2 a 3 GB**.
 
-### Passo 1: instalar as dependências
+### Passo 1: instalar o WSL2 e o Ubuntu
 
-<details open>
-<summary><strong>Ubuntu / Debian / WSL2</strong></summary>
+1. Abra o menu Iniciar, digite **PowerShell**, clique com o botão direito e escolha **Executar como administrador**.
+2. Confira se o WSL já existe:
 
-<br>
+   ```powershell
+   wsl -l -v
+   ```
+
+   Se aparecer a mensagem **"O Subsistema do Windows para Linux não está instalado"**, aperte qualquer tecla quando o Windows oferecer a instalação. Ele baixa o WSL e ativa a Plataforma de Máquina Virtual.
+3. **Reinicie o computador** quando a instalação avisar que as alterações só valem depois da reinicialização.
+4. Depois de reiniciar, abra o PowerShell como administrador de novo e instale o Ubuntu:
+
+   ```powershell
+   wsl --install -d Ubuntu
+   ```
+
+5. Quando o Ubuntu abrir numa janela preta, ele pede um **nome de usuário** e uma **senha**. Escolha os dois, com o usuário em minúsculas e sem espaços.
+
+> ⚠️ A senha **não aparece enquanto você digita**. É assim mesmo, continue digitando e aperte Enter.
+
+Quando surgir um prompt parecido com `usuario@COMPUTADOR:~$`, o Ubuntu está pronto. Para abri-lo de novo depois, procure **Ubuntu** no menu Iniciar. **Todos os passos a seguir são feitos nessa janela do Ubuntu.**
+
+### Passo 2: instalar Python, Prolog e Lisp
 
 ```bash
 sudo apt update
-sudo apt install -y git python3 swi-prolog-nox sbcl cl-yason cl-alexandria cl-babel cl-trivial-gray-streams
+sudo apt install -y git python3 swi-prolog-nox sbcl cl-yason cl-alexandria cl-babel cl-trivial-gray-streams unzip
 ```
 
-</details>
-
-<details>
-<summary><strong>Windows com WSL2 (recomendado)</strong></summary>
+<div align="center">
+<table>
+  <tr>
+    <th align="center">Pacote</th>
+    <th align="center">Função</th>
+  </tr>
+  <tr>
+    <td align="left"><code>git</code> e <code>unzip</code></td>
+    <td align="left">baixar e extrair o projeto</td>
+  </tr>
+  <tr>
+    <td align="left"><code>python3</code></td>
+    <td align="left">executa o orquestrador</td>
+  </tr>
+  <tr>
+    <td align="left"><code>swi-prolog-nox</code></td>
+    <td align="left">SWI-Prolog, em versão sem interface gráfica</td>
+  </tr>
+  <tr>
+    <td align="left"><code>sbcl</code></td>
+    <td align="left">compilador e executor de Common Lisp</td>
+  </tr>
+  <tr>
+    <td align="left"><code>cl-yason</code> + <code>cl-alexandria</code>, <code>cl-babel</code>, <code>cl-trivial-gray-streams</code></td>
+    <td align="left">biblioteca de JSON do Lisp e as três bibliotecas de que ela depende</td>
+  </tr>
+</table>
+</div>
 
 <br>
 
-1. Abra o **PowerShell como administrador** e execute `wsl --install -d Ubuntu`. Reinicie o computador se for solicitado.
-2. Abra o aplicativo **Ubuntu** pelo menu Iniciar e crie o usuário e a senha.
-3. No terminal do Ubuntu, execute os comandos da aba **Ubuntu / Debian** acima.
-4. Siga os passos 2 a 4 abaixo **dentro do terminal do Ubuntu**.
+> ⚠️ Nas versões novas do Ubuntu, o `cl-yason` **não instala sozinho** as outras três bibliotecas. Sem elas, todas as propostas aprovadas terminam em `ERRO_INTEGRACAO`. Por isso elas estão no comando acima.
 
-> 💡 Clone o projeto dentro do sistema de arquivos do Ubuntu (por exemplo, em `~/`) e não em `/mnt/c`, que é bem mais lento.
-
-</details>
-
-<details>
-<summary><strong>Windows nativo (PowerShell)</strong></summary>
-
-<br>
-
-1. Instale as ferramentas pelos sites oficiais:
-   - **Git:** [git-scm.com](https://git-scm.com/download/win)
-   - **Python 3.12:** [python.org](https://www.python.org/downloads/windows/), marcando `Add python.exe to PATH`
-   - **SWI-Prolog:** [swi-prolog.org](https://www.swi-prolog.org/Download.html), marcando a opção de adicionar ao `PATH`
-   - **SBCL:** [sbcl.org](https://www.sbcl.org/platform-table.html), binário para Windows, com a pasta de instalação no `PATH`
-2. Feche e abra o PowerShell para atualizar o `PATH`.
-3. Instale o Quicklisp e o yason:
-
-```powershell
-curl.exe -O https://beta.quicklisp.org/quicklisp.lisp
-sbcl --non-interactive --load quicklisp.lisp --eval '(quicklisp-quickstart:install)' --eval '(ql:quickload :yason)'
-```
-
-> ⚠️ No Windows nativo, use `python` no lugar de `python3` em todos os comandos dos passos seguintes.
-
-> ⁉️ Esta opção não foi validada no ambiente de testes do projeto (Ubuntu). Se algo falhar, use o WSL2.
-
-</details>
-
-> 💡 No Ubuntu e no WSL2, o `cl-yason` precisa dos pacotes `cl-alexandria`, `cl-babel` e `cl-trivial-gray-streams`, que em versões novas do Ubuntu **não** são instalados automaticamente. No Windows nativo, o Quicklisp faz esse papel e o código Lisp o encontra na pasta `quicklisp` do seu usuário sozinho.
-
-### Passo 2: baixar o projeto
-
-```bash
-git clone https://github.com/<usuario>/validacao-credito-multiparadigma.git
-cd validacao-credito-multiparadigma
-```
-
-> ⚠️ Substitua `<usuario>` pelo usuário ou organização do GitHub dona do repositório.
-
-### Passo 3: conferir a instalação
+O `apt` mostra o espaço que vai usar e, quando você tirar o `-y`, pergunta se pode continuar. Confira as versões instaladas:
 
 ```bash
 python3 --version
@@ -300,31 +420,89 @@ swipl --version
 sbcl --version
 ```
 
-> 💡 No Windows nativo, use `python --version`.
+Os três precisam responder com um número de versão.
 
-### Passo 4: executar
+### Passo 3: baixar o projeto
+
+Faça isso dentro da pasta pessoal do Ubuntu (`~`) e **não** em `/mnt/c`, que é bem mais lento.
+
+<details open>
+<summary><strong>Opção A: pelo Git (recomendada)</strong></summary>
+
+<br>
+
+```bash
+cd ~
+git clone https://github.com/<usuario>/validacao-credito-multiparadigma.git
+cd validacao-credito-multiparadigma
+```
+
+Troque `<usuario>` pelo usuário ou organização dona do repositório. Se o repositório for **privado**, o Git pede usuário e, no lugar da senha, um **token de acesso pessoal** do GitHub.
+
+</details>
+
+<details>
+<summary><strong>Opção B: pelo ZIP baixado no navegador</strong></summary>
+
+<br>
+
+No GitHub, clique em **Code › Download ZIP**. O arquivo vai para a pasta Downloads do Windows. Depois, no Ubuntu:
+
+```bash
+cd ~
+cp /mnt/c/Users/<seu-usuario-windows>/Downloads/validacao-credito-multiparadigma-main.zip .
+unzip validacao-credito-multiparadigma-main.zip
+cd validacao-credito-multiparadigma-main
+```
+
+`<seu-usuario-windows>` é o nome da sua pasta em `C:\Users`. Se o navegador salvou o ZIP com outro nome, como `(1)` no final, use o nome real entre aspas no `cp`.
+
+</details>
+
+Confirme que está na raiz do projeto:
+
+```bash
+ls
+```
+
+Deve aparecer `README.md  data  docs  lisp  main.py  prolog  python  tests`.
+
+---
+
+## Executando o projeto
+
+Sempre a partir da **raiz do projeto**:
 
 ```bash
 python3 main.py
 ```
 
-> ⚠️ Execute sempre a partir da **raiz do projeto**, porque os caminhos padrão (`data/propostas.json` e `saida/`) são relativos a ela.
+> 💡 Na primeira execução o SBCL compila o yason, e pode levar alguns segundos sem imprimir nada. As próximas são rápidas.
 
-> 💡 Na primeira execução o SBCL pode levar alguns segundos a mais para compilar o yason. As seguintes são rápidas.
-
-### Saída esperada
+O terminal mostra uma tabela colorida (verde para aprovado, amarelo para aprovado com condições, vermelho para reprovado, roxo para erro), um resumo com barras e o ranking dos maiores valores aprovados:
 
 ```text
-PROP-001   APROVADO                 risco baixo, aprovado R$ 4200.00, parcela R$ 385.06
-PROP-002   APROVADO                 risco medio, aprovado R$ 4000.00, parcela R$ 389.95
-PROP-003   APROVADO_COM_CONDICOES   risco alto, aprovado R$ 10800.00, parcela R$ 1117.63
+╔══════════════════════════════════════════════════════════════╗
+║ VALIDAÇÃO DE CRÉDITO  ·  Python + Prolog + Lisp              ║
+╠══════════════════════════════════════════════════════════════╣
+║ Python orquestra  ·  Prolog decide  ·  Lisp precifica        ║
+╚══════════════════════════════════════════════════════════════╝
+
+ID        STATUS                           APROVADO       PARCELA   DETALHE
+────────────────────────────────────────────────────────────────────────────────────────────────
+PROP-001  ✔ Aprovado                    R$ 4.200,00     R$ 385,06   risco baixo · taxa 1,5% a.m.
+PROP-002  ✔ Aprovado                    R$ 4.000,00     R$ 389,95   risco medio · taxa 2,5% a.m.
+PROP-003  ▲ Aprovado com condições     R$ 10.800,00   R$ 1.117,63   risco alto · taxa 3,5% a.m.
 ...
-PROP-009   REPROVADO                idade_abaixo_do_minimo
-PROP-010   REPROVADO                renda_abaixo_do_minimo
+PROP-009  ✘ Reprovado                             -             -   idade_abaixo_do_minimo
 ...
 
-Resumo: {'APROVADO': 21, 'APROVADO_COM_CONDICOES': 7, 'REPROVADO': 26, 'ERRO_VALIDACAO': 6}
-Resultados gravados em saida/resultados.json
+RESUMO  (60 propostas)
+  ✔ Aprovado                  21  ████████░░░░░░░░░░░░░░░░   35%
+  ▲ Aprovado com condições     7  ███░░░░░░░░░░░░░░░░░░░░░   12%
+  ✘ Reprovado                 26  ██████████░░░░░░░░░░░░░░   43%
+  ! Erro de validação          6  ██░░░░░░░░░░░░░░░░░░░░░░   10%
+  ‼ Erro de integração         0  ░░░░░░░░░░░░░░░░░░░░░░░░    0%
 ```
 
 <div align="center">
@@ -335,23 +513,23 @@ Resultados gravados em saida/resultados.json
   </tr>
   <tr>
     <td align="left"><code>APROVADO</code></td>
-    <td align="left">elegível, risco baixo ou médio</td>
+    <td align="left">elegível, com risco baixo ou médio</td>
   </tr>
   <tr>
     <td align="left"><code>APROVADO_COM_CONDICOES</code></td>
-    <td align="left">elegível, risco alto</td>
+    <td align="left">elegível, com risco alto</td>
   </tr>
   <tr>
     <td align="left"><code>REPROVADO</code></td>
-    <td align="left">o Prolog encontrou impedimentos (listados no resultado)</td>
+    <td align="left">o Prolog encontrou impedimentos, que ficam listados no resultado</td>
   </tr>
   <tr>
     <td align="left"><code>ERRO_VALIDACAO</code></td>
-    <td align="left">registro com chave ausente, tipo errado ou valor inválido</td>
+    <td align="left">registro com campo ausente, tipo errado ou valor inválido</td>
   </tr>
   <tr>
     <td align="left"><code>ERRO_INTEGRACAO</code></td>
-    <td align="left">falha ao executar Prolog ou Lisp (timeout, saída malformada, programa ausente)</td>
+    <td align="left">falha ao executar o Prolog ou o Lisp (tempo esgotado, saída malformada, programa ausente)</td>
   </tr>
 </table>
 </div>
@@ -359,8 +537,50 @@ Resultados gravados em saida/resultados.json
 ### Opções de linha de comando
 
 ```bash
-python3 main.py --entrada data/propostas.json --saida saida/resultados.json
-python3 data/gerar_dataset.py
+python3 main.py                          # tabela, resumo, ranking, JSON e HTML
+python3 main.py --detalhe PROP-001       # caminho de uma proposta pelos três módulos
+python3 main.py --sem-cor                # sem cores no terminal
+python3 main.py --entrada outro.json --saida saida/x.json --html saida/x.html
+python3 data/gerar_dataset.py            # regenera o dataset
+```
+
+### Acompanhar uma proposta pelos três módulos
+
+```bash
+python3 main.py --detalhe PROP-001
+```
+
+```text
+PROP-001  ✔ Aprovado
+
+1  PYTHON  (orientado a objetos)  valida os dados e calcula os indicadores
+     parcela base R$ 350,00 · comprometimento 10,00% da renda
+
+2  PROLOG  (lógico)  verifica as regras de elegibilidade
+     ✔ renda_minima
+     ✔ idade_minima
+     ✔ prazo_valido
+     ✔ historico_aceito
+     ✔ comprometimento_renda
+     parecer: ELEGÍVEL
+
+3  LISP    (funcional)  classifica o risco e calcula os valores
+     risco baixo · taxa 1,5% a.m.
+     limite R$ 12.600,00 · aprovado R$ 4.200,00 · parcela R$ 385,06
+```
+
+### Relatório visual no navegador
+
+A cada execução o projeto gera também o arquivo **`saida/relatorio.html`**, com cartões de resumo, a tabela de propostas com selos coloridos e o ranking. É um arquivo único, que funciona sem internet. Para abri-lo no navegador do Windows, a partir do Ubuntu:
+
+```bash
+explorer.exe "$(wslpath -w saida/relatorio.html)"
+```
+
+Se não abrir, use o Explorador de Arquivos do Windows e vá até a pasta `saida` do projeto pelo endereço abaixo, trocando `<usuario>` pelo seu usuário do Ubuntu:
+
+```text
+\\wsl.localhost\Ubuntu\home\<usuario>\validacao-credito-multiparadigma\saida
 ```
 
 ---
@@ -373,15 +593,13 @@ python3 data/metricas.py --casos 5
 ```
 
 <div align="justify">
-Os <strong>49 testes</strong> cobrem as classes de domínio, o merge sort, o fluxo do orquestrador (com módulos simulados) e a execução de ponta a ponta com Prolog e Lisp reais, incluindo casos de borda como renda exatamente R$ 1.500,00, comprometimento exatamente 30%, idade 18 e 17, prazo inválido e teto de crédito. Os testes de ponta a ponta são ignorados automaticamente se <code>swipl</code> ou <code>sbcl</code> não estiverem instalados. O script <code>data/metricas.py</code> mostra linhas de código, quantidade de funções ou predicados por linguagem, número de testes e o tempo médio de execução.
+Os <strong>70 testes</strong> cobrem as classes de domínio, o merge sort, a apresentação (terminal e HTML), o fluxo do orquestrador com módulos simulados e a execução de ponta a ponta com Prolog e Lisp reais. Entre eles estão casos de borda, como renda exatamente R$ 1.500,00, comprometimento exatamente 30%, idade 18 e 17, prazo inválido e teto de crédito. Os testes de ponta a ponta são ignorados automaticamente se <code>swipl</code> ou <code>sbcl</code> não estiverem instalados.
 </div>
 
----
-
-## Contrato JSON
+<br>
 
 <div align="justify">
-Todas as mensagens trafegam em JSON UTF-8 por <code>stdin</code> e <code>stdout</code>, uma proposta por execução. O formato de cada fronteira (Python ↔ Prolog e Python ↔ Lisp), as decisões de negócio e o tratamento de erros estão em <a href="docs/contrato_json.md"><strong>docs/contrato_json.md</strong></a>.
+O script <code>data/metricas.py</code> mostra as linhas de código, a quantidade de funções ou predicados por linguagem, o número de testes e o <strong>tempo médio de execução por etapa</strong> (Python, Prolog e Lisp), apontando a etapa mais lenta. Esses números sustentam a comparação entre os paradigmas.
 </div>
 
 ---
@@ -391,21 +609,23 @@ Todas as mensagens trafegam em JSON UTF-8 por <code>stdin</code> e <code>stdout<
 ```text
 validacao-credito-multiparadigma/
 ├── main.py                    ponto de entrada único
+├── python/                    orquestrador em Python (orientado a objetos)
+│   ├── dominio.py             Cliente, Proposta, AnaliseRisco e ordenação por intercalação
+│   ├── integracao.py          chamada do Prolog e do Lisp, com tempo limite
+│   ├── orquestrador.py        fluxo de cada proposta e do lote
+│   └── apresentacao.py        tabela, resumo, ranking, detalhe e relatório HTML
+├── prolog/
+│   └── elegibilidade.pl       fatos e regras de elegibilidade
+├── lisp/
+│   └── precificacao.lisp      pipeline de precificação (risco, juros, limite, parcela)
 ├── data/
 │   ├── propostas.json         60 propostas fictícias (casos de borda e aleatórias)
 │   ├── gerar_dataset.py       gera o dataset
 │   └── metricas.py            métricas para o relatório
-├── python/
-│   ├── dominio.py             Cliente, Proposta, AnaliseRisco, merge sort
-│   ├── integracao.py          chamada de Prolog e Lisp com timeout
-│   ├── orquestrador.py        fluxo por proposta e por lote
-│   └── tests/                 testes unitários e de integração
-├── prolog/
-│   └── elegibilidade.pl       fatos e regras de elegibilidade
-├── lisp/
-│   └── precificacao.lisp      risco, juros, limite e parcela
-└── docs/
-    └── contrato_json.md       contrato de integração v1.1
+├── tests/                     70 testes unitários e de integração
+├── docs/
+│   └── contrato_json.md       contrato de integração entre os módulos
+└── saida/                     criada ao rodar: resultados.json e relatorio.html
 ```
 
 ---
@@ -413,29 +633,72 @@ validacao-credito-multiparadigma/
 ## Solução de problemas
 
 <details>
-<summary><strong><code>swipl</code> ou <code>sbcl</code> não é reconhecido</strong></summary>
+<summary><strong>"O Subsistema do Windows para Linux não está instalado"</strong></summary>
 
 <br>
 
-O programa não está no `PATH`. Reinstale pelo Passo 1 e abra um novo terminal (no Windows nativo, feche e abra o PowerShell). Sem eles, o `main.py` registra `ERRO_INTEGRACAO` para cada proposta.
+Siga o Passo 1: aperte uma tecla quando o Windows oferecer a instalação e **reinicie o computador** em seguida. O comando `wsl --install -d Ubuntu` só funciona depois da reinicialização.
 
 </details>
 
 <details>
-<summary><strong>Erro "falha ao carregar o yason" ou <code>ERRO_INTEGRACAO</code> em todas as propostas aprovadas</strong></summary>
+<summary><strong>Todas as propostas aprovadas aparecem como <code>ERRO_INTEGRACAO</code> ou surge "falha ao carregar o yason"</strong></summary>
 
 <br>
 
-No Ubuntu e no WSL2, instale `sudo apt install cl-yason cl-alexandria cl-babel cl-trivial-gray-streams`. No Windows nativo, rode o Quicklisp do Passo 1 e confirme que a pasta `quicklisp` existe dentro da pasta do seu usuário.
+Faltam as bibliotecas do Lisp. No Ubuntu, rode:
+
+```bash
+sudo apt install cl-yason cl-alexandria cl-babel cl-trivial-gray-streams
+```
+
+Para conferir, este comando não deve mostrar nenhum erro:
+
+```bash
+sbcl --non-interactive --eval '(require :asdf)' --eval '(asdf:load-system "yason")'
+```
 
 </details>
 
 <details>
-<summary><strong>Erro ao ler <code>data/propostas.json</code></strong></summary>
+<summary><strong><code>swipl</code> ou <code>sbcl</code>: "command not found"</strong></summary>
 
 <br>
 
-Execute o comando na raiz do projeto ou gere o arquivo de novo com `python3 data/gerar_dataset.py`.
+O programa não foi instalado. Repita o Passo 2 e confira com `swipl --version` e `sbcl --version`.
+
+</details>
+
+<details>
+<summary><strong>"Erro: nao foi possivel ler data/propostas.json"</strong></summary>
+
+<br>
+
+Você não está na raiz do projeto. Entre na pasta (`cd ~/validacao-credito-multiparadigma`) ou gere o arquivo de novo com `python3 data/gerar_dataset.py`.
+
+</details>
+
+<details>
+<summary><strong>O <code>git clone</code> pede senha e recusa</strong></summary>
+
+<br>
+
+O repositório é privado. Use um **token de acesso pessoal** do GitHub no lugar da senha, ou baixe o ZIP (Opção B do Passo 3).
+
+</details>
+
+<details>
+<summary><strong>Como desinstalar tudo depois</strong></summary>
+
+<br>
+
+Tudo fica dentro do Ubuntu do WSL. No **PowerShell**, o comando abaixo apaga a distribuição inteira, com o projeto e todas as ferramentas:
+
+```powershell
+wsl --unregister Ubuntu
+```
+
+> ⚠️ É **irreversível** e apaga tudo o que estiver dentro desse Ubuntu. Se você usa o Ubuntu do WSL para outras coisas, não rode o comando. O ZIP que você baixou fica na pasta Downloads do Windows e precisa ser apagado à mão.
 
 </details>
 

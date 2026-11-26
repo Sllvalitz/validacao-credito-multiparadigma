@@ -62,7 +62,7 @@ def contar_unidades(linguagem: str, arquivos: list[Path]) -> int:
 
 
 def contar_testes() -> int:
-    arquivos = sorted((RAIZ / "python" / "tests").glob("test_*.py"))
+    arquivos = sorted((RAIZ / "tests").glob("test_*.py"))
     return sum(len(PADRAO_TESTE.findall(a.read_text(encoding="utf-8"))) for a in arquivos)
 
 
@@ -82,26 +82,62 @@ def escolher_casos(quantidade: int) -> list[dict]:
     return registros[::passo][:quantidade]
 
 
+def cronometrar(funcao, *argumentos):
+    # perf_counter e um relogio monotonico de alta resolucao, proprio para medir duracoes
+    inicio = time.perf_counter()
+    resultado = funcao(*argumentos)
+    return resultado, time.perf_counter() - inicio
+
+
+def medir_proposta(caso: dict, prolog, lisp) -> tuple[dict[str, float], str]:
+    from python.dominio import ErroValidacao, Proposta
+
+    inicio = time.perf_counter()
+    try:
+        proposta = Proposta.de_registro(caso)
+        indicadores = proposta.para_prolog()
+    except ErroValidacao:
+        return {"Python": time.perf_counter() - inicio}, "erro de validacao"
+    tempos = {"Python": time.perf_counter() - inicio}
+    parecer, tempos["Prolog"] = cronometrar(prolog.executar, indicadores)
+    if not parecer["elegivel"]:
+        return tempos, "reprovada"
+    _, tempos["Lisp"] = cronometrar(lisp.executar, proposta.para_lisp())
+    return tempos, "aprovada"
+
+
 def medir_tempos(quantidade: int) -> None:
     # sem as ferramentas a medicao e pulada em vez de falhar
     if shutil.which("swipl") is None or shutil.which("sbcl") is None:
         print("Tempo de execucao: swipl e/ou sbcl nao encontrados, medicao nao realizada")
         return
     sys.path.insert(0, str(RAIZ))
+    from python.dominio import Proposta
     from python.integracao import criar_modulo_lisp, criar_modulo_prolog
-    from python.orquestrador import Orquestrador
 
-    orquestrador = Orquestrador(criar_modulo_prolog(), criar_modulo_lisp())
-    tempos = []
+    prolog = criar_modulo_prolog()
+    lisp = criar_modulo_lisp()
+    # a primeira chamada fica de fora: na primeira execucao o SBCL compila o yason e distorceria a media
+    aquecimento = Proposta.de_registro(escolher_casos(1)[0])
+    prolog.executar(aquecimento.para_prolog())
+    lisp.executar(aquecimento.para_lisp())
+
+    medicoes: dict[str, list[float]] = {"Python": [], "Prolog": [], "Lisp": []}
     print(f"\nTempo de execucao em {quantidade} casos:")
     for caso in escolher_casos(quantidade):
-        # perf_counter e um relogio monotonico de alta resolucao, proprio para medir duracoes
-        inicio = time.perf_counter()
-        resultado = orquestrador.processar(caso)
-        duracao = time.perf_counter() - inicio
-        tempos.append(duracao)
-        print(f"  {resultado['id']:<10} {resultado['status']:<24} {duracao * 1000:8.1f} ms")
-    print(f"Tempo medio: {sum(tempos) / len(tempos) * 1000:.1f} ms por proposta")
+        tempos, desfecho = medir_proposta(caso, prolog, lisp)
+        for etapa, duracao in tempos.items():
+            medicoes[etapa].append(duracao)
+        print(f"  {caso['id']:<10} {desfecho:<18} {sum(tempos.values()) * 1000:8.1f} ms")
+
+    medias = {etapa: sum(valores) / len(valores) for etapa, valores in medicoes.items() if valores}
+    soma = sum(medias.values())
+    print("\nTempo medio por etapa:")
+    for etapa, media in medias.items():
+        print(f"  {etapa:<8} {media * 1000:8.1f} ms  ({media / soma:>4.0%} do total, {len(medicoes[etapa])} casos)")
+    mais_lenta = max(medias, key=medias.get)
+    print(f"Etapa mais lenta: {mais_lenta}")
+    print("Obs.: Prolog e Lisp rodam como processos novos a cada proposta, entao o tempo inclui a inicializacao deles.")
 
 
 def quantidade_de_casos(texto: str) -> int:

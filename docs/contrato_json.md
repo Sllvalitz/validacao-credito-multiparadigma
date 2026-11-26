@@ -10,7 +10,7 @@ Chaves sem acentuação. Mudanças deste documento exigem aprovação dos 5 inte
 - Comprometimento da renda arredondado a 4 casas para evitar ruído de ponto flutuante.
 - Chaves do tratamento de erros mantidas.
 
-## 1. Decisões de negócio (aprovadas pela equipe: ☐ Anderson ☐ Lucy ☐ Chico ☐ Isabelle ☐ Robson)
+## 1. Decisões de negócio (aprovadas pela equipe: ☐ Anderson ☐ Lucy ☐ Pedro ☐ Isabelle ☐ Robson)
 
 | Tema | Decisão |
 |---|---|

@@ -224,14 +224,14 @@ def _intercalar(esquerda: list[T], direita: list[T], chave: Callable[[T], float]
 
 # merge sort feito a mao (algoritmo classico exigido pelo enunciado), sem sorted();
 # e estavel porque _intercalar usa <=, entao chaves iguais mantem a ordem original
-def merge_sort(itens: list[T], chave: Callable[[T], float]) -> list[T]:
+def ordenar_por_intercalacao(itens: list[T], chave: Callable[[T], float]) -> list[T]:
     if len(itens) <= 1:
         return list(itens)
     meio = len(itens) // 2
-    return _intercalar(merge_sort(itens[:meio], chave), merge_sort(itens[meio:], chave), chave)
+    return _intercalar(ordenar_por_intercalacao(itens[:meio], chave), ordenar_por_intercalacao(itens[meio:], chave), chave)
 
 
 def ordenar_aprovadas_por_valor(analises: list[AnaliseRisco]) -> list[AnaliseRisco]:
     # reprovadas e com erro nao tem valor aprovado, por isso ficam de fora
     aprovadas = [analise for analise in analises if analise.aprovada]
-    return merge_sort(aprovadas, lambda analise: analise.valor_aprovado)
+    return ordenar_por_intercalacao(aprovadas, lambda analise: analise.valor_aprovado)
